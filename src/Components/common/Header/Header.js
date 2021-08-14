@@ -15,10 +15,6 @@ const Header = () => {
     if (!loggedInUser) setLoggedInUser(loadLocalStorage(LOGGEDIN_USER));
   }, [location]);
 
-  useEffect(() => {
-    console.log("loggedInUser :>> ", loggedInUser);
-  }, [loggedInUser]);
-
   return (
     <Wrapper>
       <Link to="/">
