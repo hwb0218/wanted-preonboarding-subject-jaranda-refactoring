@@ -2,23 +2,22 @@ import React, { forwardRef } from "react";
 import styled, { css } from "styled-components";
 import MessageBox from "Components/common/MessageBox";
 
-const Input = (
-  {
-    type = "text",
+const Input = ({ ...props }, ref) => {
+  const {
+    type,
     name,
     value,
-    onChange = () => {},
+    onChange,
     placeholder,
-    icon = null,
-    error = false,
-    errorMessage = null,
-    successMessage = null,
-    width = "100%",
-    numberOnly = false,
-    maxLength = null,
-  },
-  ref
-) => {
+    icon,
+    error,
+    errorMessage,
+    successMessage,
+    width,
+    numberOnly,
+    maxLength,
+  } = props;
+
   return (
     <Wrapper width={width}>
       <InputWrapper error={error} numberOnly={numberOnly}>
@@ -81,5 +80,17 @@ const InputWrapper = styled.div`
     height: 40px;
   }
 `;
+
+Input.defalutProps = {
+  type: "text",
+  onChange: () => {},
+  icon: null,
+  error: false,
+  errorMessage: null,
+  successMessage: null,
+  width: "100%",
+  numberOnly: false,
+  maxLength: null,
+};
 
 export default forwardRef(Input);

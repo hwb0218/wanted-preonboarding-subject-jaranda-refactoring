@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import MessageBox from "Components/common/MessageBox";
 
-const Radio = ({ name, value, onChange, data = [], error = false, errorMessage = null }) => {
+const Radio = ({ name, value, onChange, data, error, errorMessage }) => {
   return (
     <Wrapper>
       <RadioGroup error={error}>
@@ -60,5 +60,11 @@ const RadioGroup = styled.div`
     }
   }
 `;
+
+Radio.defalutProps = {
+  data: [],
+  error: false,
+  errorMessage: null,
+};
 
 export default Radio;
