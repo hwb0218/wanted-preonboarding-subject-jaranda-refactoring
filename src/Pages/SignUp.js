@@ -56,17 +56,6 @@ const SignUp = () => {
     dateOfBirth: "",
   });
 
-  const initialState = {
-    authority: false,
-    email: false,
-    pw: false,
-    pwCheck: false,
-    name: false,
-    address: false,
-    detailAddress: false,
-    creditCardNum: false,
-    dateOfBirth: false,
-  };
   const [errors, setErrors] = useState(initialState);
 
   const validator = {
@@ -503,6 +492,18 @@ const SIGNUP_EMAIL_STATUS = {
   unConfirmed: 2,
   confirmedFailure: 3,
   confirmedSuccess: 4,
+};
+
+const initialState = {
+  authority: false,
+  email: false,
+  pw: false,
+  pwCheck: false,
+  name: false,
+  address: false,
+  detailAddress: false,
+  creditCardNum: false,
+  dateOfBirth: false,
 };
 
 export default SignUp;
