@@ -4,13 +4,6 @@ import styled from "styled-components";
 const AuthFilter = ({ searchConditions, setSearchConditions }) => {
   const { searchType, condition } = searchConditions;
 
-  const authFilters = [
-    { type: "전체", key: "whole" },
-    { type: "관리자", key: "admin" },
-    { type: "선생님", key: "teacher" },
-    { type: "부모님", key: "parents" },
-  ];
-
   const activeWholeFilter = () => ({
     searchType: searchType,
     condition: { whole: true, teacher: true, parents: true, admin: true },
@@ -63,6 +56,13 @@ const AuthFilter = ({ searchConditions, setSearchConditions }) => {
     </Wrapper>
   );
 };
+
+const authFilters = [
+  { type: "전체", key: "whole" },
+  { type: "관리자", key: "admin" },
+  { type: "선생님", key: "teacher" },
+  { type: "부모님", key: "parents" },
+];
 
 export default AuthFilter;
 
