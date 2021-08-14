@@ -55,7 +55,6 @@ const SignUp = () => {
     creditCardNum: "",
     dateOfBirth: "",
   });
-
   const [errors, setErrors] = useState(initialState);
 
   const validator = {
@@ -91,22 +90,23 @@ const SignUp = () => {
     return true;
   };
 
-  const handleClickDuplicateCheck = () => {
-    setEmailDuplicateChecked(true);
-
-    if (!isEmail(formData.email)) {
+  const checkEmail = (email) => {
+    if (!isEmail(email)) {
       setErrors({ ...errors, email: true });
       setEmailDuplicateStatus(SIGNUP_EMAIL_STATUS.invalidType);
       return;
     }
+  };
 
-    const userData = loadLocalStorage(USER_STORAGE);
+  const checkUserData = (userData) => {
     if (!userData) {
       setErrors({ ...errors, email: false });
       setEmailDuplicateStatus(SIGNUP_EMAIL_STATUS.confirmedSuccess);
       return;
     }
+  };
 
+  const searchEmail = (userData) => {
     const searchEmail = userData.filter((user) => user.email === formData.email);
     if (searchEmail.length) {
       setErrors({ ...errors, email: true });
@@ -115,6 +115,16 @@ const SignUp = () => {
       setErrors({ ...errors, email: false });
       setEmailDuplicateStatus(SIGNUP_EMAIL_STATUS.confirmedSuccess);
     }
+  };
+  //이메일 중복체크가 핵심이므로 어떠한 기능의 함수인지 파악하기 쉽게 handleEmailDuplicateCheck로 함수명을 바꾼다.
+  const handleEmailDuplicateCheck = () => {
+    setEmailDuplicateChecked(true);
+
+    //조건문의 반복으로 어떠한 조건을 체크하는지 파악하기 어렵다 때문에 함수로 각 조건별 중복체크를 분리해 호출해 가독성을 높였다.
+    const userData = loadLocalStorage(USER_STORAGE);
+    checkEmail(formData.email);
+    checkUserData(userData);
+    searchEmail(userData);
   };
 
   const getEmailStatusMessage = (status) => {
@@ -232,7 +242,7 @@ const SignUp = () => {
             successMessage={emailDuplicateChecked && "사용 가능한 이메일 입니다"}
             width="75%"
           />
-          <Button value="중복확인" width="20%" onClick={handleClickDuplicateCheck} />
+          <Button value="중복확인" width="20%" onClick={handleEmailDuplicateCheck} />
         </EmailWrapper>
 
         <Input
