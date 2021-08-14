@@ -30,10 +30,10 @@ import {
   Calendar,
   checkIcon,
 } from "Components/common/svgs";
+import useToggleModal from "Hooks/useToggleModal";
 
 const SignUp = () => {
-  const [modalType, setModalType] = useState("");
-  const [modalOpen, setModalOpen] = useState(false);
+  const { isModalOpen, modalType, toggleModal } = useToggleModal();
   const [emailDuplicateStatus, setEmailDuplicateStatus] = useState(SIGNUP_EMAIL_STATUS.default);
   const [emailDuplicateChecked, setEmailDuplicateChecked] = useState(false);
   const [visiblePassword, setVisiblePassword] = useState(true);
@@ -123,11 +123,6 @@ const SignUp = () => {
     else if (status === SIGNUP_EMAIL_STATUS.unConfirmed) message = "중복 검사를 진행해주세요";
     else if (status === SIGNUP_EMAIL_STATUS.confirmedFailure) message = "중복된 이메일 입니다.";
     return message;
-  };
-
-  const toggleModal = (modal) => {
-    setModalOpen(!modalOpen);
-    setModalType(modal);
   };
 
   const handleSetAuthority = (authority) => {
@@ -349,7 +344,7 @@ const SignUp = () => {
 
         <Button type="submit" value="회원가입" marginTop="10px" />
 
-        <Modal isOpen={modalOpen} toggleModal={toggleModal} modalType={modalType}>
+        <Modal isOpen={isModalOpen} toggleModal={toggleModal} modalType={modalType}>
           <>
             {modalType === "success" && <SignupModal />}
             {modalType === "address" && (

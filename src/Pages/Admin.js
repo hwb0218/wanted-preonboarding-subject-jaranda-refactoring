@@ -8,14 +8,15 @@ import Modal from "Components/common/Modal/Modal";
 import CreateAccount from "Components/Admin/CreateAccount/CreateAccount";
 import { loadLocalStorage, saveLocalStorage } from "Utils/Storage";
 import { ADMIN, USER_STORAGE } from "Utils/constants";
+import useToggleModal from "Hooks/useToggleModal";
 
 const Admin = () => {
+  const { isModalOpen, setModalOpen } = useToggleModal();
   const { PAGE_SIZE } = ADMIN;
   const searchKeywordRef = useRef("");
   const [pageNum, setPageNum] = useState(0);
   const [users, setUsers] = useState([]);
   const [filteredUsers, setFilteredUsers] = useState([]);
-  const [isOpen, setIsOpen] = useState(false);
   const [wholePages, setWholePages] = useState(1);
   const [isSearch, setIsSearch] = useState(false);
   const [isCreateAccount, setIsCreateAccount] = useState(false);
@@ -90,14 +91,16 @@ const Admin = () => {
 
   return (
     <AdminWrapper>
-      <Modal isOpen={isOpen} toggleModal={() => setIsOpen(!isOpen)}>
+      <Modal isOpen={isModalOpen} toggleModal={() => setModalOpen(!isModalOpen)}>
         <CreateAccount
           setIsCreateAccount={setIsCreateAccount}
-          toggleModal={() => setIsOpen(!isOpen)}
+          toggleModal={() => setModalOpen(!isModalOpen)}
         />
       </Modal>
       <SearchContainer>
-        <CreateAccountButton onClick={() => setIsOpen(!isOpen)}>계정 생성</CreateAccountButton>
+        <CreateAccountButton onClick={() => setModalOpen(!isModalOpen)}>
+          계정 생성
+        </CreateAccountButton>
         <SearchBar {...{ searchKeywordRef, setSearchConditions, handleSearchClick }} />
       </SearchContainer>
       <AuthFilter {...{ searchConditions, setSearchConditions }} />
